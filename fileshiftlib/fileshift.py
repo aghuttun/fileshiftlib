@@ -31,7 +31,6 @@ class SFTP(object):
         self.sftp_client: paramiko.sftp_client.SFTPClient = None
         self.__transport: paramiko.transport.Transport = None
 
-        port = 22 if port is None else port
         self.__configuration = self.Configuration(host=host,
                                                   port=port,
                                                   username=username,
