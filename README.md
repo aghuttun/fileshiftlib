@@ -17,6 +17,20 @@ from a script:
 
 ```python
 import fileshiftlib
+import logging
+
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+
+host = "localhost"
+username = "123..."
+password = "xxxx"
+port = 22
+
+# Initialize SFTP client
+sftp = fileshiftlib.SFTP(host=host,
+                         username=username,
+                         password=password,
+                         port=port)
 ```
 
 ## Installation

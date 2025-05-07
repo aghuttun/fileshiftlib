@@ -24,6 +24,8 @@ class SFTP(object):
         # Init logging
         self.__logger = logging.getLogger(name=__name__)
         self.__logger.setLevel(level=logging.INFO)
+        handler = logging.StreamHandler()
+        self.__logger.addHandler(handler)
 
         # Credentials/configuration
         self.sftp_client: paramiko.sftp_client.SFTPClient = None
