@@ -1,7 +1,5 @@
 # fileshiftlib
 
-This library provides access to some SFTP functionalities.
-
 * [Description](#package-description)
 * [Usage](#usage)
 * [Installation](#installation)
