@@ -6,10 +6,10 @@ import paramiko
 class SFTP(object):
     @dataclass
     class Configuration:
-        host: str = None
-        port: int = None
-        username: str = None
-        password: str = None
+        host: str | None = None
+        port: int | None = None
+        username: str | None = None
+        password: str | None = None
 
     def __init__(self, host: str, username: str, password: str, port: int = 22) -> None:
         """
