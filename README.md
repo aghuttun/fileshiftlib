@@ -17,9 +17,6 @@ from a script:
 
 ```python
 import fileshiftlib
-import logging
-
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 
 host = "localhost"
 username = "123..."
@@ -31,6 +28,27 @@ sftp = fileshiftlib.SFTP(host=host,
                          username=username,
                          password=password,
                          port=port)
+```
+
+```python
+content_list = sftp.list_dir()
+print(content_list)
+```
+
+```python
+sftp.change_dir(path=".")
+```
+
+```python
+sftp.delete_file(filename=r"demo.txt")
+```
+
+```python
+sftp.download_file(remote_path=r"/demo/demo.txt", local_path=r"c:\local\demo.txt")
+```
+
+```python
+sftp.upload_file(local_path=r"c:\local\demo.txt", remote_path=r"/demo/demo.txt")
 ```
 
 ## Installation
