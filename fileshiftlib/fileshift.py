@@ -5,6 +5,7 @@ import paramiko
 # Creates a logger for this module
 logger = logging.getLogger(__name__)
 
+
 class SFTP(object):
     @dataclass
     class Configuration:
