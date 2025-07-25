@@ -2,6 +2,8 @@ from dataclasses import dataclass
 import logging
 import paramiko
 
+# Creates a logger for this module
+logger = logging.getLogger(__name__)
 
 class SFTP(object):
     @dataclass
@@ -25,8 +27,6 @@ class SFTP(object):
         # Init logging
         # Use provided logger or create a default one
         self._logger = logger or logging.getLogger(name=__name__)
-        self._logger.setLevel(level=logging.INFO)
-        # self._logger.propagate = True
 
         # Credentials/configuration
         self._configuration = self.Configuration(host=host,
