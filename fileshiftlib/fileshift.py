@@ -26,7 +26,7 @@ class SFTP(object):
         # Use provided logger or create a default one
         self._logger = logger or logging.getLogger(name=__name__)
         self._logger.setLevel(level=logging.INFO)
-        self._logger.propagate = True
+        # self._logger.propagate = True
 
         # Credentials/configuration
         self._configuration = self.Configuration(host=host,

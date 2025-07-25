@@ -27,7 +27,8 @@ port = 22
 sftp = fileshiftlib.SFTP(host=host,
                          username=username,
                          password=password,
-                         port=port)
+                         port=port,
+                         logger=None)
 ```
 
 ```python
