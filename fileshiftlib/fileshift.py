@@ -11,7 +11,7 @@ class SFTP(object):
         username: str = "admin"
         password: str | None = None
 
-    def __init__(self, host: str, username: str, password: str, port: int = 22) -> None:
+    def __init__(self, host: str, username: str, password: str, port: int = 22, logger: logging.Logger | None = None) -> None:
         """
         Initializes the SFTP client with the given configuration and authenticates.
 
@@ -20,12 +20,13 @@ class SFTP(object):
             username (str): The username for authentication.
             password (str): The password for authentication.
             port (int, optional): The port number of the SFTP server. Defaults to 22.
+            logger (logging.Logger, optional): Logger instance to use. If None, a default logger is created.
         """
         # Init logging
-        self._logger = logging.getLogger(name=__name__)
+        # Use provided logger or create a default one
+        self._logger = logger or logging.getLogger(name=__name__)
         self._logger.setLevel(level=logging.INFO)
-        # handler = logging.StreamHandler()
-        # self._logger.addHandler(handler)
+        self._logger.propagate = True
 
         # Credentials/configuration
         self._configuration = self.Configuration(host=host,
