@@ -63,6 +63,30 @@ class SFTP(object):
         
         return transport, sftp_client
     
+    def reconnect(self) -> None:
+        """
+        Reconnects to the SFTP server by closing the current session and re-authenticating.
+        """
+        self._logger.info(msg="Reconnects to the SFTP server")
+        try:
+            self._transport.close()
+            self.sftp_client.close()
+        except Exception as e:
+            self._logger.warning(msg=f"Error closing existing connection: {e}")
+
+        self._transport, self.sftp_client = self.auth()
+
+    def is_connected(self) -> bool:
+        """
+        Checks if the SFTP connection is currently active.
+
+        Returns:
+            bool: True if the connection is active, False otherwise.
+        """
+        self._logger.info(msg="Checks if the connection is active")
+
+        return self._transport.is_active()
+
     def list_dir(self, path: str = ".") -> list:
         """
         Lists the names of the contents in the specified folder on the SFTP server.
