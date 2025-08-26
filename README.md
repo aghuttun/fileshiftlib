@@ -32,6 +32,15 @@ sftp = fileshiftlib.SFTP(host=host,
 ```
 
 ```python
+sftp.reconnect()
+```
+
+```python
+ftp_status = sftp.is_connected()
+print(ftp_status)
+```
+
+```python
 content_list = sftp.list_dir()
 print(content_list)
 ```
