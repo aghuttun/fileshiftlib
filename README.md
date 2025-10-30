@@ -1,9 +1,10 @@
 # fileshiftlib
 
-* [Description](#package-description)
-* [Usage](#usage)
-* [Installation](#installation)
-* [License](#license)
+- [Description](#package-description)
+- [Usage](#usage)
+- [Installation](#installation)
+- [Docstring](#docstring)
+- [License](#license)
 
 ## Package Description
 
@@ -11,9 +12,7 @@ SFTP client Python package that uses [paramiko](https://pypi.org/project/paramik
 
 ## Usage
 
-* [fileshiftlib](#fileshiftlib)
-
-from a script:
+From a script:
 
 ```python
 import fileshiftlib
@@ -63,8 +62,6 @@ sftp.upload_file(local_path=r"c:\local\demo.txt", remote_path=r"/demo/demo.txt")
 
 ## Installation
 
-* [fileshiftlib](#fileshiftlib)
-
 Install python and pip if you have not already.
 
 Then run:
@@ -91,8 +88,12 @@ pip install -e ".[dev]"
 
 To test the development package: [Testing](#testing)
 
+## Docstring
+
+The script's docstrings follow the numpydoc style.
+
 ## License
 
-* [fileshiftlib](#fileshiftlib)
-
 BSD License (see license file)
+
+- [fileshiftlib](#fileshiftlib)
