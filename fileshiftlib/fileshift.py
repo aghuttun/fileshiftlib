@@ -317,4 +317,4 @@ class SFTP(object):
         self.sftp_client.put(local_path, remote_path)
 
 
-# eom
+# eof
