@@ -23,11 +23,13 @@ password = "xxxx"
 port = 22
 
 # Initialize SFTP client
-sftp = fileshiftlib.SFTP(host=host,
-                         username=username,
-                         password=password,
-                         port=port,
-                         logger=None)
+sftp = fileshiftlib.SFTP(
+    host=host,
+    username=username,
+    password=password,
+    port=port,
+    logger=None
+)
 ```
 
 ```python
@@ -53,11 +55,17 @@ sftp.delete_file(filename=r"demo.txt")
 ```
 
 ```python
-sftp.download_file(remote_path=r"/demo/demo.txt", local_path=r"c:\local\demo.txt")
+sftp.download_file(
+    remote_path=r"/demo/demo.txt",
+    local_path=r"c:\local\demo.txt"
+)
 ```
 
 ```python
-sftp.upload_file(local_path=r"c:\local\demo.txt", remote_path=r"/demo/demo.txt")
+sftp.upload_file(
+    local_path=r"c:\local\demo.txt",
+    remote_path=r"/demo/demo.txt"
+)
 ```
 
 ## Installation
