@@ -7,10 +7,13 @@ __pycache__/
 
 # C extensions
 *.so
+*.pyd
 
 # Distribution / packaging
 .Python
 build/
+dist-verify/
+dist_verify/
 develop-eggs/
 dist/
 downloads/
@@ -21,6 +24,8 @@ lib64/
 parts/
 sdist/
 var/
+wheelhouse/
+wheelhouse-verify/
 wheels/
 *.egg-info/
 .installed.cfg
@@ -133,3 +138,13 @@ tags
 
 # PyCharm
 .idea/
+
+# Rust build artifacts
+/target/
+Cargo.lock
+**/*.rs.bk
+*.pdb
+
+# IDE
+.vscode/
+*.code-workspace

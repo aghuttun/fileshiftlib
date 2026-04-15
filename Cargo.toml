@@ -1,0 +1,16 @@
+[package]
+name = "fileshiftlib"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["rlib", "cdylib"]
+
+[features]
+default = []
+python = ["dep:pyo3"]
+
+[dependencies]
+ssh2 = "0.9"
+pyo3 = { version = "0.23", optional = true, features = ["abi3-py310", "extension-module"] }
+thiserror = "1.0"

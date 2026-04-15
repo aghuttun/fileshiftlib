@@ -1,105 +1,87 @@
 # fileshiftlib
 
-- [Description](#package-description)
-- [Usage](#usage)
+SFTP client for Python.
+
 - [Installation](#installation)
-- [Docstring](#docstring)
+- [Usage](#usage)
+- [Version](#version)
 - [License](#license)
 
-## Package Description
-
-SFTP client Python package that uses [paramiko](https://pypi.org/project/paramiko/) library.
-
-## Usage
-
-From a script:
-
-```python
-import fileshiftlib
-
-host = "localhost"
-username = "123..."
-password = "xxxx"
-port = 22
-
-# Initialize SFTP client
-sftp = fileshiftlib.SFTP(
-    host=host,
-    username=username,
-    password=password,
-    port=port,
-    logger=None
-)
-```
-
-```python
-sftp.reconnect()
-```
-
-```python
-ftp_status = sftp.is_connected()
-print(ftp_status)
-```
-
-```python
-content_list = sftp.list_dir()
-print(content_list)
-```
-
-```python
-sftp.change_dir(path=".")
-```
-
-```python
-sftp.delete_file(filename=r"demo.txt")
-```
-
-```python
-sftp.download_file(
-    remote_path=r"/demo/demo.txt",
-    local_path=r"c:\local\demo.txt"
-)
-```
-
-```python
-sftp.upload_file(
-    local_path=r"c:\local\demo.txt",
-    remote_path=r"/demo/demo.txt"
-)
-```
-
 ## Installation
-
-Install python and pip if you have not already.
-
-Then run:
-
-```bash
-pip install pip --upgrade
-```
-
-For production:
 
 ```bash
 pip install fileshiftlib
 ```
 
-This will install the package and all of it's python dependencies.
+## Usage
 
-If you want to install the project for development:
+```python
+import fileshiftlib
 
-```bash
-git clone https://github.com/aghuttun/fileshiftlib.git
-cd fileshiftlib
-pip install -e ".[dev]"
+# Initialise SFTP client
+sftp = fileshiftlib.SFTP(
+    host="sftp.example.com",
+    username="user",
+    password="password",
+    port=22
+)
 ```
 
-## Docstring
+```python
+# Check connection status
+if sftp.is_connected():
+    print("Connected!")
+```
 
-The script's docstrings follow the numpydoc style.
+```python
+# List directory contents
+files = sftp.list_dir(".")
+print(files)
+```
+
+```python
+# Change directory
+sftp.change_dir("/remote/path")
+```
+
+```python
+# Upload a file
+sftp.upload_file("local_file.txt", "remote_file.txt")
+```
+
+```python
+# Download a file
+sftp.download_file("remote_file.txt", "local_copy.txt")
+```
+
+```python
+# Delete a file
+sftp.delete_file("remote_file.txt")
+```
+
+```python
+# Reconnect
+sftp.reconnect()
+```
+
+## Version
+
+Recommended way to read the installed package version:
+
+```python
+from importlib.metadata import version
+
+print(version("fileshiftlib"))
+```
+
+Convenience attribute (also available):
+
+```python
+import fileshiftlib
+
+print(fileshiftlib.__version__)
+```
 
 ## License
 
-BSD License (see license file)
-
-[top](#fileshiftlib)
+BSD-3-Clause License (see [LICENSE](LICENSE))
