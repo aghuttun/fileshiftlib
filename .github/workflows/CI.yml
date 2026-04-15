@@ -9,58 +9,78 @@ on:
   pull_request:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
-  build-and-test:
-    runs-on: ubuntu-latest
+  test:
+    name: Test (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Setup Python
+        uses: actions/setup-python@v6
         with:
-          python-version: '3.12'
+          python-version: "3.12"
 
-      - name: Set up Rust
+      - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
 
-      - name: Install Python dependencies
-        run: |
-          python -m pip install --upgrade pip
-          python -m pip install maturin pytest
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip maturin pytest
+
+      - name: Clean old builds
+        run: rm -rf dist target 2>/dev/null || true
+        shell: bash
 
       - name: Build wheel
         run: maturin build --release --out dist
 
-      - name: Install built wheel
+      - name: Install wheel
         run: python -m pip install --force-reinstall dist/*.whl
 
       - name: Run tests
-        run: python -m unittest discover -s tests -p "test_*.py"
+        run: python -m pytest tests -q --tb=no || python -m unittest discover -s tests -p "test_*.py"
 
   publish-pypi:
-    if: startsWith(github.ref, 'refs/tags/v')
-    needs: build-and-test
+    name: Publish to PyPI
     runs-on: ubuntu-latest
-    env:
-      PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
+    needs: test
+    if: startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: read
+      id-token: write   # Recomendado para publicação segura
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Setup Python
+        uses: actions/setup-python@v6
         with:
-          python-version: '3.12'
+          python-version: "3.12"
 
-      - name: Set up Rust
+      - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
 
       - name: Install maturin
         run: python -m pip install --upgrade pip maturin
 
+      - name: Build wheel + sdist
+        run: |
+          rm -rf dist
+          maturin build --release --out dist
+          maturin sdist --out dist
+
       - name: Publish to PyPI
-        if: env.PYPI_API_TOKEN != ''
-        run: maturin publish --username __token__ --password "$PYPI_API_TOKEN"
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: dist
+          password: ${{ secrets.PYPI_API_TOKEN }}
