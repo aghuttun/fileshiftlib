@@ -63,4 +63,4 @@ jobs:
 
       - name: Publish to PyPI
         if: env.PYPI_API_TOKEN != ''
-        run: maturin publish --release --username __token__ --password "$PYPI_API_TOKEN"
+        run: maturin publish --username __token__ --password "$PYPI_API_TOKEN"

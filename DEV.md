@@ -178,5 +178,5 @@ The pipeline uses the `PYPI_API_TOKEN` secret stored in the repository settings.
 To publish manually:
 
 ```bash
-maturin publish --release --username __token__ --password "$PYPI_API_TOKEN"
+maturin publish --username __token__ --password "$PYPI_API_TOKEN"
 ```
