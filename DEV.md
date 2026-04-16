@@ -43,9 +43,8 @@ The package also exposes `fileshiftlib.__version__` as a convenience alias.
 ```
 fileshiftlib/
 ├── src/
-│   ├── lib.rs              # PyO3 module entry point
-│   ├── models.rs           # Rust SFTP client implementation
-│   └── python_bindings.rs  # Python class wrappers
+│   ├── lib.rs              # Rust core + PyO3 module entry point
+│   └── python_bindings.rs  # Python class wrappers (PyO3)
 ├── tests/
 │   ├── test_smoke.py       # Public API smoke tests
 │   └── test_live_sftp.py   # Optional integration tests (require a live server)

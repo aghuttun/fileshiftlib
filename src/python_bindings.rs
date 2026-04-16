@@ -1,6 +1,6 @@
-use pyo3::prelude::*;
+use crate::{SftpClient, SftpError};
 use pyo3::exceptions::PyException;
-use crate::models::{SftpClient, SftpError};
+use pyo3::prelude::*;
 
 fn sftp_error_to_pyexc(err: SftpError) -> PyErr {
     PyException::new_err(err.to_string())
@@ -38,7 +38,7 @@ impl PySftpClient {
         logger: Option<PyObject>,
     ) -> PyResult<Self> {
         let _ = logger; // Ignore logger for now (for API compatibility)
-        
+
         let mut client = SftpClient::new(host, username, password, port);
         client.authenticate().map_err(sftp_error_to_pyexc)?;
 
