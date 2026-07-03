@@ -12,5 +12,6 @@ python = ["dep:pyo3"]
 
 [dependencies]
 ssh2 = "0.9"
+libssh2-sys = { version = "0.3", features = ["vendored"] }
 pyo3 = { version = "0.23", optional = true, features = ["abi3-py310", "extension-module"] }
 thiserror = "1.0"
