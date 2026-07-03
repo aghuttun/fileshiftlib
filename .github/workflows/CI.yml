@@ -70,7 +70,6 @@ jobs:
           - os: linux
             runner: ubuntu-latest
             target: x86_64-unknown-linux-gnu
-            manylinux: "2014"
           - os: linux
             runner: ubuntu-24.04-arm
             target: aarch64-unknown-linux-gnu
@@ -99,17 +98,20 @@ jobs:
           rm -rf wheelhouse 2>/dev/null || true
         shell: bash
 
-      - name: Build wheel (Linux x86_64, manylinux)
+      - name: Install Linux system dependencies
+        if: matrix.os == 'linux'
+        run: sudo apt-get update && sudo apt-get install -y libssh2-1-dev
+
+      - name: Build wheel (Linux x86_64, native)
         if: matrix.os == 'linux' && matrix.target == 'x86_64-unknown-linux-gnu'
-        uses: PyO3/maturin-action@v1
-        with:
-          target: ${{ matrix.target }}
-          manylinux: ${{ matrix.manylinux }}
-          args: --release --features python --out wheelhouse
-          before-script-linux: yum install -y libssh2-devel
+        env:
+          LIBSSH2_STATIC: "1"
+        run: maturin build --release --features python --compatibility manylinux_2_39 --out wheelhouse
 
       - name: Build wheel (Linux ARM64, native)
         if: matrix.os == 'linux' && matrix.target == 'aarch64-unknown-linux-gnu'
+        env:
+          LIBSSH2_STATIC: "1"
         run: maturin build --release --features python --compatibility manylinux_2_39 --out wheelhouse
 
       - name: Build wheel (native)
