@@ -106,6 +106,7 @@ jobs:
           target: ${{ matrix.target }}
           manylinux: ${{ matrix.manylinux }}
           args: --release --features python --out wheelhouse
+          before-script-linux: yum install -y libssh2-devel
 
       - name: Build wheel (Linux ARM64, native)
         if: matrix.os == 'linux' && matrix.target == 'aarch64-unknown-linux-gnu'
